@@ -79,19 +79,22 @@ function createPlayer(name, mark)
     return {name, mark, points, playPiece, givePoint, resetPoints};
 }
 
-function playRound(player1, player2)
+function updateHeaderText(currentMover)
+{   
+    let headerText = document.querySelector(".winnerText");
+    headerText.textContent = `${currentMover.name}'s Turn`;
+}
+
+function playRound(player1 = "player1", player2 = "player2")
 {
     let players = [player1, player2];
     let firstMover = players[Math.round(Math.random())];
     players.splice(players.indexOf(firstMover), 1);
     let secondMover = players[0];
+    let currentMover = firstMover;
 
-    while(!firstMover.playPiece(prompt(firstMover.name + " : Enter X Cord: "), prompt(firstMover.name + " : Enter Y Cord: ")));
     while (1)
     {
-        while(!secondMover.playPiece(prompt(secondMover.name + " : Enter X Cord: "), prompt(secondMover.name + " : Enter Y Cord: ")));
-        if (gameboard.scanBoard()) break;
-        while(!firstMover.playPiece(prompt(firstMover.name + " : Enter X Cord: "), prompt(firstMover.name + " : Enter Y Cord: ")));
-        if (gameboard.scanBoard()) break;
+        
     }
 }
