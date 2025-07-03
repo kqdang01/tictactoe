@@ -96,6 +96,7 @@ body {
 button {
   border: 2px solid rgb(95, 95, 95);
   background-color: transparent;
+  color: transparent;
 }
 
 button:nth-child(1) {
@@ -136,6 +137,10 @@ button:nth-child(6) {
 
 button:nth-child(8) {
   border-top: none;
+}
+
+button:hover {
+  background-color: rgb(32, 32, 32);
 }
 
 .X {
