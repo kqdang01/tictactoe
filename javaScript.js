@@ -24,13 +24,13 @@ const gameboard = (function () {
                 if (!j && boardArray[i][j+1] == currentCell && boardArray[i][j+2] == currentCell)
                 {
                     console.log(currentCell + " wins! row");
-                    clearButtonListeners();
+                    endGame();
                     return currentCell;
                 }
                 if (!i && boardArray[i+1][j] == currentCell && boardArray[i+2][j] == currentCell)
                 {
                     console.log(currentCell + " wins! column");
-                    clearButtonListeners();
+                    endGame();
                     return currentCell;
                 }
                 if (i == 1 && j == 1)
@@ -38,7 +38,7 @@ const gameboard = (function () {
                     if ((boardArray[0][0] == currentCell && boardArray[2][2] == currentCell) || (boardArray[0][2] == currentCell && boardArray[2][0] == currentCell))
                     {
                         console.log(currentCell + " wins! diagonal");
-                        clearButtonListeners();
+                        endGame();
                         return currentCell;
                     }
                 }
@@ -47,11 +47,18 @@ const gameboard = (function () {
         if (tie)
         {
             console.log("game tied!");
+            endGame();
             return "tie";
         }
     }
 
     const resetBoard = () => {
+        const buttons = document.querySelectorAll("#game");
+        clearButtonListeners();
+        for (button of buttons)
+        {
+            button.className = "";
+        }
         for(let i = 0; i < 3; i++)
         {
             for (let j = 0; j < 3; j++)
@@ -82,8 +89,9 @@ function createPlayer(name, mark)
     }
 
     const givePoint = () => points++;
+    const getPoints = () => points;
     const resetPoints = () => points = 0;
-    return {name, mark, points, playPiece, givePoint, resetPoints};
+    return {name, mark, points, playPiece, givePoint, resetPoints, getPoints};
 }
 
 function updateGameText(status)
@@ -107,22 +115,37 @@ function updateGameText(status)
     {
         headerText.textContent = "Tie!";
     }
-    player1Score.textContent = gameboard.player1.points;
-    player2Score.textContent = gameboard.player2.points;
+    player1Score.textContent = gameboard.player1.getPoints();
+    player2Score.textContent = gameboard.player2.getPoints();
 }
 
 function clearButtonListeners()
 {
-    const buttons = document.querySelectorAll("button");
+    const buttons = document.querySelectorAll("#game");
     for (button of buttons)
     {
         button.removeEventListener("click", playButton);
+        button.removeEventListener("click", playRound);
+    }
+}
+
+function endGame()
+{
+    const buttons = document.querySelectorAll("#game");
+    clearButtonListeners();
+    for (button of buttons)
+    {
+        button.addEventListener("click", playRound);
     }
 }
 
 function playButton()
 {
     const coords = this.textContent.split(" ");
+    const p1Name = document.querySelector(".p1name");
+    const p2Name = document.querySelector(".p2name");
+    gameboard.player1.name = p1Name.value;
+    gameboard.player2.name = p2Name.value;
     if (gameboard.currentMover.playPiece(coords[1], coords[0]))
     {
         this.className = gameboard.currentMover.mark;
@@ -139,21 +162,38 @@ function playButton()
     updateGameText(gameboard.scanBoard());
 }
 
-function playRound(player1 = "player1", player2 = "player2")
+function playRound()
 {
-    const buttons = document.querySelectorAll("button");
-    let players = [player1, player2];
-    let firstMover = players[Math.round(Math.random())];
-    players.splice(players.indexOf(firstMover), 1);
-    let secondMover = players[0];
-    console.table(firstMover);
-    gameboard.player1 = firstMover;
-    gameboard.player2 = secondMover;
-    gameboard.currentMover = firstMover;
+    if (!gameboard.player1)
+    {
+        gameboard.player1 = createPlayer("Player 1", "X");
+        gameboard.player2 = createPlayer("Player 2", "O");
 
-    let count = 0;
+        const resetButton = document.querySelector(".reset");
+        resetButton.addEventListener("click", () => {
+            gameboard.player1.resetPoints();
+            gameboard.player2.resetPoints();
+            playRound();
+            updateGameText();
+        })
+    }
+    
+    const buttons = document.querySelectorAll("#game");
+    let players = [gameboard.player1, gameboard.player2];
+    let firstMover = players[Math.round(Math.random())];
+    const p1Name = document.querySelector(".p1name");
+    const p2Name = document.querySelector(".p2name");
+    gameboard.player1.name = p1Name.value;
+    gameboard.player2.name = p2Name.value;
+
+    gameboard.resetBoard();
+    gameboard.currentMover = firstMover;
+    updateGameText();
+
     for (button of buttons)
     {
         button.addEventListener("click", playButton);
     }
 }
+
+playRound();

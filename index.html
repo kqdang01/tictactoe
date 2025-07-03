@@ -14,27 +14,28 @@
     <div class="gameContainer">
         <div class="scoreContainer">
             <div class="score1">
-                <h1>Player1</h1>
+                <input class="p1name" type="text" maxlength="13" value="Player 1"></input>
                 <h2 class="p1score">0</h2>
             </div>
+            <button class="reset"></button>
             <div class="score2">
-                <h1>Player2</h1>
+                <input class="p2name" type="text" maxlength="13" value="Player 2"></input>
                 <h2 class="p2score">0</h2>
             </div>
         </div>
 
-        <h1 class="winnerText"> And the winner is X!</h1>
+        <h1 class="winnerText"></h1>
 
         <div class="gameGrid">
-            <button>0 0</button>
-            <button>0 1</button>
-            <button>0 2</button>
-            <button>1 0</button>
-            <button>1 1</button>
-            <button>1 2</button>
-            <button>2 0</button>
-            <button>2 1</button>
-            <button>2 2</button>
+            <button id="game">0 0</button>
+            <button id="game">0 1</button>
+            <button id="game">0 2</button>
+            <button id="game">1 0</button>
+            <button id="game">1 1</button>
+            <button id="game">1 2</button>
+            <button id="game">2 0</button>
+            <button id="game">2 1</button>
+            <button id="game">2 2</button>
         </div>
     </div>
 </body>

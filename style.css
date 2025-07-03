@@ -57,20 +57,24 @@ body {
 .scoreContainer {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 10rem;
 }
 
-.scoreContainer > div > h1 {
+.scoreContainer > div > input {
   width: 15rem;
+  border: none;
   border-bottom: 1px solid white;
   font-size: 2rem;
+  background-color: transparent;
+  color: white;
 }
 
 .scoreContainer h2 {
   font-size: 1.5rem;
 }
 
-.score2 h1 {
+.score2 input {
   text-align: right;
 }
 
@@ -93,53 +97,68 @@ body {
   border-radius: 10px;
 }
 
-button {
+.reset {
+  height: 50px;
+  width: 50px;
+  background-image: url(./svgs/restart.svg);
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 10px;
+  transition-duration: 0.2s;
+}
+
+.reset:hover {
+  opacity: 0.6;
+  transform: translateY(-3px);
+}
+
+button#game {
   border: 2px solid rgb(95, 95, 95);
   background-color: transparent;
   color: transparent;
 }
 
-button:nth-child(1) {
+button#game:nth-child(1) {
   border-top-left-radius: 30px;
   border-bottom: none;
   border-right: none;
 }
 
-button:nth-child(3) {
+button#game:nth-child(3) {
   border-top-right-radius: 30px;
   border-left: none;
   border-bottom: none;
 }
 
-button:nth-child(7) {
+button#game:nth-child(7) {
   border-bottom-left-radius: 30px;
   border-top: none;
   border-right: none;
 }
 
-button:nth-child(9) {
+button#game:nth-child(9) {
   border-bottom-right-radius: 30px;
   border-top: none;
   border-left: none;
 }
 
-button:nth-child(2) {
+button#game:nth-child(2) {
   border-bottom: none;
 }
 
-button:nth-child(4) {
+button#game:nth-child(4) {
   border-right: none;
 }
 
-button:nth-child(6) {
+button#game:nth-child(6) {
   border-left: none;
 }
 
-button:nth-child(8) {
+button#game:nth-child(8) {
   border-top: none;
 }
 
-button:hover {
+button#game:hover {
   background-color: rgb(32, 32, 32);
 }
 
